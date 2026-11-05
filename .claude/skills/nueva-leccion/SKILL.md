@@ -32,7 +32,9 @@ Reglas:
 
 ## 2. Registra la lección en el menú
 
-En el diccionario `LECCIONES`, añádela justo antes del Mini-quiz y vuelve a numerar el quiz para que siga siendo la última opción. Usa el mismo emoji y título que en `titulo(...)`.
+En la lista `LECCIONES`, añade `("emoji Título", nombre_de_la_leccion)` justo antes del Mini-quiz, que siempre va al final. Usa el mismo emoji y título que en `titulo(...)`. Los números del menú se calculan solos según el orden de la lista, así que no hay que renumerar nada.
+
+Si el concepto es nuevo, añade también una pregunta sobre él en `mini_quiz()`.
 
 ## 3. Revisa el texto
 
@@ -42,10 +44,16 @@ En el diccionario `LECCIONES`, añádela justo antes del Mini-quiz y vuelve a nu
 
 ## 4. Pruébala sin teclear
 
-Ejecuta la lección directamente, pasándole las respuestas por stdin. Desactiva las pausas para que sea rápido:
+Ejecuta la lección directamente, pasándole las respuestas por stdin. Desactiva las pausas para que sea rápido. El comando depende de la terminal:
 
+Con la herramienta Bash (Git Bash):
 ```
 printf '3\n\n' | python -c "import aprende_loops as a; a.pausa = lambda s=0: None; a.nombre_de_la_leccion()"
+```
+
+Con la herramienta PowerShell (Windows PowerShell 5.1, donde `printf` no existe). PowerShell antepone un BOM invisible al texto de la tubería; sin `utf-8-sig`, la primera respuesta llega como `"﻿3"` y se rechaza:
+```
+"3`n`n" | python -c "import io, sys; sys.stdin = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8-sig'); import aprende_loops as a; a.pausa = lambda s=0: None; a.nombre_de_la_leccion()"
 ```
 
 Comprueba en la salida que lo que se imprime coincide con el código mostrado. Prueba también el valor mínimo y el máximo que acepta `pedir_numero`.
