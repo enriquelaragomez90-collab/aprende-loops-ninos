@@ -215,6 +215,61 @@ def adivina_el_numero():
     continuar()
 
 
+def bucles_anidados():
+    titulo("🔁 Bucles dentro de bucles")
+    print("¡Un bucle puede ir DENTRO de otro bucle! 🪆")
+    print("El bucle de afuera hace las FILAS y el de adentro pone las ESTRELLAS de cada fila.")
+    print("💡 end=\"\" le dice a print que NO salte de línea, así las estrellas quedan juntas.\n")
+    lado = pedir_numero("¿De qué tamaño quieres tu cuadrado?", 1, 10)
+    mostrar_codigo(f"""
+for fila in range(1, {lado} + 1):
+    for columna in range(1, {lado} + 1):
+        print("⭐", end="")
+    print()
+""")
+    for fila in range(1, lado + 1):
+        for columna in range(1, lado + 1):
+            print("⭐", end="")
+        print()
+        pausa(0.2)
+    total = lado * lado
+    palabra_fila = "fila" if lado == 1 else "filas"
+    palabra_estrella = "estrella" if total == 1 else "estrellas"
+    print(f"\n🎉 {lado} {palabra_fila} x {lado} = ¡{total} {palabra_estrella}!")
+    print("💡 El bucle de adentro se repite COMPLETO en cada vuelta del bucle de afuera.")
+    continuar()
+
+
+def bucle_con_break():
+    titulo("🛑 BREAK: salir de un bucle")
+    print("A veces queremos PARAR un bucle antes de que termine.")
+    print("Para eso existe 'break': ¡rompe el bucle y salimos de inmediato! 🚪\n")
+    tesoro = pedir_numero("¿En qué caja escondemos el tesoro?", 1, 10)
+    mostrar_codigo(f"""
+for caja in range(1, 11):
+    print("📦 Abriendo la caja", caja)
+    if caja == {tesoro}:
+        print("💎 ¡Encontré el tesoro!")
+        break
+print("🏃 ¡Salí del bucle!")
+""")
+    for caja in range(1, 11):
+        print("📦 Abriendo la caja", caja)
+        pausa()
+        if caja == tesoro:
+            print("💎 ¡Encontré el tesoro!")
+            break
+    print("🏃 ¡Salí del bucle!")
+    sin_abrir = 10 - tesoro
+    if sin_abrir == 0:
+        print("\n🎉 El tesoro estaba en la última caja, así que el bucle llegó hasta el final.")
+    else:
+        palabra_caja = "caja" if sin_abrir == 1 else "cajas"
+        print(f"\n🎉 El bucle iba a abrir 10 cajas, pero 'break' lo detuvo en la caja {tesoro}.")
+        print(f"💡 ¡Nos ahorramos abrir {sin_abrir} {palabra_caja}!")
+    continuar()
+
+
 def mini_quiz():
     titulo("🧠 Mini-quiz de bucles")
     preguntas = [
@@ -260,7 +315,9 @@ LECCIONES = {
     "5": ("✖️  Tablas de multiplicar", tablas_de_multiplicar),
     "6": ("🚀 Bucle WHILE: cuenta regresiva", cuenta_regresiva),
     "7": ("🎲 Juego: adivina el número", adivina_el_numero),
-    "8": ("🧠 Mini-quiz", mini_quiz),
+    "8": ("🔁 Bucles dentro de bucles", bucles_anidados),
+    "9": ("🛑 BREAK: salir de un bucle", bucle_con_break),
+    "10": ("🧠 Mini-quiz", mini_quiz),
 }
 
 
